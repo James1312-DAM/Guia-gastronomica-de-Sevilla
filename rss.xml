@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Gastronomía Sevilla</title>
+        <link>https://www.</link>
+        <description>Canal RSS con novedades, recomendaciones y actualidad gastronómica en Sevilla</description>
+        <language>es-ES</language>
+        <copyright>Jaime Gómez</copyright>
+        <category>Restauración y bares</category>
+
+        <item>
+            <title>Las mejores Cervecerias de Sevilla en 2026</title>
+            <link> https://sevillasecreta.co/cerveza-sevilla/
+            </link>
+            <description>Selección actualizada de las cervecerías más recomendadas de Sevilla</description>
+            <pubDate>Wed, 25 Mar 2026, 15:00:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>El Rinconcillo mantiene su tradición como la taberna más antigua de Sevilla</title>
+            <link>https://www.elrinconcillo.es/</link>
+            <description>Descubre la historia y la oferta gastronómica actual de este emblemático bar sevillano</description>
+            <pubDate>Wed, 25 Marc 2026, 12:30:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Perro Viejo apuesta por una cocina andaluza renovada</title>
+            <link>https://www.tuhogarfueradecasa.com/perro-viejo/</link>
+            <description>El restaurante presenta una propuesta moderna</description>
+            <pubDate>Wed, 25 Marc 2026, 12:40:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Brasería: El rinconcillo</title>
+            <link>https://www.tuhogarfueradecasa.com/perro-viejo/</link>
+            <description>Web oficial de información: Perro Viejo</description>
+            <pubDate>Wed, 25 Marc 2026, 12:40:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Asador: La choza de manuela</title>
+            <link>
+                https://www.tripadvisor.es/Restaurant_Review-g776188-d2313873-Reviews-La_Choza_de_Manuela-Bormujos_Province_of_Seville_Andalucia.html</link>
+            <description>Opiniones recientes y valoraciones</description>
+            <pubDate>Wed, 25 Marc 2026, 12:45:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Abantal renueva su menú degustación</title>
+            <link>https://abantalrestaurante.es/menus-degustacion/</link>
+            <description>El restaurante con estrella Michelin introduce novedades en su carta</description>
+            <pubDate>Wed, 25 Mar 2026, 13:00:00 +0100</pubDate>
+        </item>
+        <item>
+            <title>Taberna: Casa Morales sigue siendo un referente</title>
+            <link>https://casamoralessevilla.es/</link>
+            <description>Un lugar imprescindible para disfrutar si vienes a Sevilla</description>
+            <pubDate>Wed, 25 Marc 2026, 14:00:00 +0100</pubDate>
+        </item>
+
+    </channel>
+</rss>
