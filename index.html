@@ -13,12 +13,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
-    <!--RSS / PUBLICAR WEB -->
-    <link rel="alternate" type="application/rss+xml" title="Gastronomía Sevilla - RSS" href="rss.xml">
 </head>
 
 <body>
     <header>
+        <!-- PROYECTO JAVASCRIPT BOTON MODO OSCURO -->
+        <button id="boton-oscuro" onclick="cambiarColor()">Modo Oscuro</button>
+        <script>
+
+            let colorClaro = false;
+            /*creo la variable de color y compruebo si es distinta, selecciono el body y cambio de color, al pulsar el boton. 
+                Y se cambia el texto del boton, tambien muestro por consola en que estado se encuentra*/
+            function cambiarColor() {
+                if (!colorClaro) {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = "fondo-oscuro";
+                    colorClaro = true;
+                    console.log("Cambio el color a oscuro.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema Claro";
+                } else {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = ""; //Truco para no editar las clases de css vuelve al estilo original, sin necesidad de crear ahora la clase modoClaro. Coge los estilos que tengo por defecto
+                    colorClaro = false;
+                    console.log("Cambio el color a blanco.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema oscuro";
+                }
+
+            }
+        </script>
+
         <h1> Guía gastronómica de Sevilla con reserva online</h1>
         <nav class="barra-superior">
             <a href="#cañas">Cervecerias</a>
@@ -29,7 +56,8 @@
         </nav>
     </header>
     <main>
-
+        <!--PROYECTO SCRIPT MENSAJE BIENVENIDA-->
+        <h2></h2><!--Creo un h2 vacio y luego selecciono el primer h2 de la web para modificar-->
         <div id="presentacion">
             <h2>Breve presentación...</h2>
             <p>¡Bienvenido a la web que todo sevillano y no tan sevillano desea encontrar!</p>
@@ -39,452 +67,517 @@
             <p>Veremos bares típicos de Sevilla y las últimas incorporaciones más innovadoras. ¡Adentraté a descubrir la
                 Sevilla gastronómica!</p>
         </div>
+        <!-- PROYECTO JAVASCRIPT CARRUSEL IMAGENES-->
+        <div class="contenedor-carrusel">
+            <!--Creo un boton para avanzar y otro para retroceder-->
+            <button onclick="retrocederImagen()" class="btn-flecha">
+                <img src="Imagenes/botonimagen.png" width="70px"
+                    style="transform: rotate(180deg);"><!--Fuente google para poder reutilizar la misma imagen pero alreves-->
+            </button>
+            <img id="imgCarrousel"
+                src="https://static.grupojoly.com/clip/98ab631a-5bf9-41a4-a87b-b267001c0924_16-9-aspect-ratio_1600w_0.webp"
+                width="400px" height="300px">
 
-        <h2>Índice</h2>
-        <nav id="indice-logos">
-            <p>A continuación tienes un listado que te manda directamente al artículo sobre el que estes interesado.</p>
-            <p>¡Pulsa y descubre donde ir con tus amigos!</p>
-            <div class="logos">
-                <a href="#cañas"><img src="Imagenes/logo cv.png" alt="las mejores cervezas" width="200"></a>
-                <a href="#gastrobares"><img src="Imagenes/logo resta.png" alt="los mejores restaurantes"
-                        width="200"></a>
-                <a href="#SteakHouse"><img src="Imagenes/logo carne.png" alt="las mejores carnes" width="200"></a>
-                <a href="#restaurantesSorprendentes"><img src="Imagenes/logo sorpre.png"
-                        alr="restaurantes sorprendentes" width="200"></a>
-                <a href="#clasicos"><img src="Imagenes/tapas.png" alt="las mejores tapas" width="200"></a>
-            </div>
-        </nav>
-        <section id="reservas">
-            <h2>¡Haz tu reserva! Con descuento</h2>
-            <div class="contenedor-reservas">
-                <div class="texto-reserva">
-                    <p>Obten un 10% de descuento en tu próxima reserva de restaurante si lo haces con nosotros.</p>
-                    <p>Envíenos su solicitud, y le contestaremos a su e-mail si la reserva pudo ser realizada el
-                        descuento.</p>
-                    <p><sub><u>Descuentos sujeto a condiciones establecidas por cada establecimiento.</u></sub></p>
+            <button onclick="cambiarImagen()"><img src="Imagenes/botonimagen.png" width="70px"></button>
+        </div>
+        <script>
+            /*Creo un array de imagenes  y voy cambiando de posicion al pulsar el boton*/
+            let imagenActual = 0;
+
+            let imagenes = [
+                "https://sevilla.cosasdecome.es/wp-content/uploads/2022/11/Mesa-grande-847x435.jpg",
+                "https://cdn.thefork.com/tf-lab/image/upload/restaurant/e83a391f-3b73-45c0-905c-4ccb73fb6cf3/7f188983-6f9d-4fbd-b912-d13bbd52bdc0.jpg",
+                "https://media-cdn.tripadvisor.com/media/photo-s/13/e7/c0/6a/entrecot-argentino.jpg",
+                "https://casamoralessevilla.es/.cm4all/iproc.php/Home/1-home-casa-morales-0821.jpg/scale_800_600%3Bdonotenlarge/1-home-casa-morales-0821.jpg",
+                "https://casamoralessevilla.es/.cm4all/iproc.php/Home/HOME%202.jpg/scale_800_600%3Bdonotenlarge/HOME%202.jpg"
+            ];
+
+            function cambiarImagen() {
+                /*Empezamos en la posicin 0 y vamos aumentando de una en una al pulsar el boton*/
+                imagenActual++;
+
+                if (imagenActual >= imagenes.length) {
+                    imagenActual = 0;
+                }
+
+                let elementoImagen = document.querySelector("#imgCarrousel");
+                elementoImagen.setAttribute("src", imagenes[imagenActual]);
+            }
+
+            function retrocederImagen() {
+                imagenActual--;
+
+                /* Si bajamos de 0, volvemos a la última imagen*/
+                if (imagenActual < 0) { imagenActual = imagenes.length - 1; } let
+                    elementoImagen = document.querySelector("#imgCarrousel"); elementoImagen.setAttribute("src",
+                        imagenes[imagenActual]);
+            } </script>
+
+            <h2>Índice</h2>
+            <nav id="indice-logos">
+                <p>A continuación tienes un listado que te manda directamente al artículo sobre el que estes interesado.
+                </p>
+                <p>¡Pulsa y descubre donde ir con tus amigos!</p>
+                <div class="logos">
+                    <a href="#cañas"><img src="Imagenes/logo cv.png" alt="las mejores cervezas" width="200"></a>
+                    <a href="#gastrobares"><img src="Imagenes/logo resta.png" alt="los mejores restaurantes"
+                            width="200"></a>
+                    <a href="#SteakHouse"><img src="Imagenes/logo carne.png" alt="las mejores carnes" width="200"></a>
+                    <a href="#restaurantesSorprendentes"><img src="Imagenes/logo sorpre.png"
+                            alr="restaurantes sorprendentes" width="200"></a>
+                    <a href="#clasicos"><img src="Imagenes/tapas.png" alt="las mejores tapas" width="200"></a>
                 </div>
-                <form>
-                    <fieldset>
-                        <label for="nombre">Nombre restaurante / bar :</label>
-                        <input type="text" name="restaurante" placeholder="Nombre restaurante" required>
-                        <label for="fecha">Fecha de reserva: </label>
-                        <input type="date" name="fecha" required>
-                        <label for="seleccionar ">Elige una opción:</label>
-                        <select name="seleccionar" required>
-                            <option value="opcion1">Almuerzo</option>
-                            <option value="opcion2">Cena</option>
-                        </select>
-                        <label for="personas">Número de personas:</label>
-                        <input type="number" name="personas" min="1" max="50" value="1" required>
-                        <label for="telefono">Teléfono de contacto: </label>
-                        <input type="tel" name="telefono" placeholder="Teléfono" required>
-                        <label type="email">Correo de contacto: </label>
-                        <input type="email" name="email" placeholder="Correo" required>
-                        Preferencia de mesa:
-                        <div class="radio-mesa">
-                            <label for="eleccion_unica">
-                                Interior
-                                <input type="radio" name="eleccion_unica">
+            </nav>
+            <section id="reservas">
+                <h2>¡Haz tu reserva! Con descuento</h2>
+                <div class="contenedor-reservas">
+                    <div class="texto-reserva">
+                        <p>Obten un 10% de descuento en tu próxima reserva de restaurante si lo haces con nosotros.</p>
+                        <p>Envíenos su solicitud, y le contestaremos a su e-mail si la reserva pudo ser realizada el
+                            descuento.</p>
+                        <p><sub><u>Descuentos sujeto a condiciones establecidas por cada establecimiento.</u></sub></p>
+                        <br>
+                        <!--PROYECTO JAVASCRIPT BOTON CON MODIFICACION EN ELEMENTO-->
+                        <!--Les doy id al boton y parrafo para modificar luego-->
+                        <button id="botonModif" onclick="modificarCondiciones()">Ver condiciones del establecimiento</button>
+                           
+                        <p id="modif"></p>
+
+                    </div>
+                    <form>
+                        <fieldset>
+                            <label for="nombre">Nombre restaurante / bar :</label>
+                            <input type="text" name="restaurante" placeholder="Nombre restaurante" required>
+                            <label for="fecha">Fecha de reserva: </label>
+                            <input type="date" name="fecha" required>
+                            <label for="seleccionar ">Elige una opción:</label>
+                            <select name="seleccionar" required>
+                                <option value="opcion1">Almuerzo</option>
+                                <option value="opcion2">Cena</option>
+                            </select>
+                            <label for="personas">Número de personas:</label>
+                            <input type="number" name="personas" min="1" max="50" value="1" required>
+                            <label for="telefono">Teléfono de contacto: </label>
+                            <input type="tel" name="telefono" placeholder="Teléfono" required>
+                            <label type="email">Correo de contacto: </label>
+                            <input type="email" name="email" placeholder="Correo" required>
+                            Preferencia de mesa:
+                            <div class="radio-mesa">
+                                <label for="eleccion_unica">
+                                    Interior
+                                    <input type="radio" name="eleccion_unica">
+                                </label>
+                                <label for="eleccion_unica">
+                                    Terraza
+                                    <input type="radio" name="eleccion_unica">
+                                </label>
+                            </div>
+                            <label for="area-de-texto">
+                                Información adicional:
+                                <textarea name="area-de-texto" cols="35" rows="1" minlength="0" maxlength="50"
+                                    placeholder="Introduzca aquí otras preferencias"></textarea>
                             </label>
-                            <label for="eleccion_unica">
-                                Terraza
-                                <input type="radio" name="eleccion_unica">
-                            </label>
-                        </div>
-                        <label for="area-de-texto">
-                            Información adicional:
-                            <textarea name="area-de-texto" cols="35" rows="1" minlength="0" maxlength="50"
-                                placeholder="Introduzca aquí otras preferencias"></textarea>
-                        </label>
-                        <br><br>
-                        <input type="submit" value="Reservar">
-                        <input type="reset" value="Limpiar">
-                    </fieldset>
-                </form>
-            </div>
+                            <br><br>
+                            <input type="submit" value="Reservar">
+                            <input type="reset" value="Limpiar">
+                        </fieldset>
+                    </form>
+                </div>
 
-        </section>
-        <hr>
+            </section>
+            <hr>
 
-        <section id="cañas">
-            <h2>¡Para tomar cañas!</h2>
-            <p>A todos nos gusta tomarnos una buena caña con nuestros amigos. Aquí te puesto un listado de mis lugares
-                favoritos:</p>
-            <ul>
-                <li>Cerveceria Europa</li>
-                <li>Maquila</li>
-                <li>Bodeguita el Salvador</li>
-                <li>Bierkraft</li>
-                <li>Factoría Cruzcampo</li>
-                <li>El Rinconcillo</li>
-            </ul>
-            <p>Aquí abajo os dejaré ahora una tabla comparativa, por un lado tenemos <b>Cerveceria Europa</b> un clásico
-                en
-                la zona Nervión, donde destacamos su amplia variedad de cervezas internacionales.</p>
-            <p>Cerca de esta misma zona nos encontramos con <b>Factoría Cruzcampo</b>, la antigua fábrica de Cruzcampo,
-                donde podemos disfrutar de toda la gama
-                de Cruzcampo además de poder tapear platos de gran variedad.</p>
-            <p>Especial mención a la <b>Bodeguita el Salvador</b> y <b>El Rinconcillo</b> que llevan años acompañandonos
-                y
-                nunca nos defrauda. El
-                resto de Cervecerias ofrecen productos artesanales, que os recomiendo que vayais a probarlas.</p>
+            <section id="cañas">
+                <h2>¡Para tomar cañas!</h2>
+                <p>A todos nos gusta tomarnos una buena caña con nuestros amigos. Aquí te puesto un listado de mis
+                    lugares
+                    favoritos:</p>
+                <ul>
+                    <li>Cerveceria Europa</li>
+                    <li>Maquila</li>
+                    <li>Bodeguita el Salvador</li>
+                    <li>Bierkraft</li>
+                    <li>Factoría Cruzcampo</li>
+                    <li>El Rinconcillo</li>
+                </ul>
+                <p>Aquí abajo os dejaré ahora una tabla comparativa, por un lado tenemos <b>Cerveceria Europa</b> un
+                    clásico
+                    en
+                    la zona Nervión, donde destacamos su amplia variedad de cervezas internacionales.</p>
+                <p>Cerca de esta misma zona nos encontramos con <b>Factoría Cruzcampo</b>, la antigua fábrica de
+                    Cruzcampo,
+                    donde podemos disfrutar de toda la gama
+                    de Cruzcampo además de poder tapear platos de gran variedad.</p>
+                <p>Especial mención a la <b>Bodeguita el Salvador</b> y <b>El Rinconcillo</b> que llevan años
+                    acompañandonos
+                    y
+                    nunca nos defrauda. El
+                    resto de Cervecerias ofrecen productos artesanales, que os recomiendo que vayais a probarlas.</p>
 
-            <table border="3">
-                <caption>¡Mi puntuación!</caption>
-                <thead>
-                    <th>Nombre</th>
-                    <th>Tipo Cv</th>
-                    <th>Ubicación</th>
-                    <th>Terraza</th>
-                    <th>Puntuación</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Cerveceria Europa</td>
-                        <td>Internacional</td>
-                        <td>Nervión</td>
-                        <td>Si</td>
-                        <td>8 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Maquila</td>
-                        <td>Artesanal</td>
-                        <td>Alameda de Hércules</td>
-                        <td>Si</td>
-                        <td>7.5 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Bodeguita el Salvador</td>
-                        <td>Clásicas</td>
-                        <td>Plaza del Salvador</td>
-                        <td>Si</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Bierkraft</td>
-                        <td>Artesanal</td>
-                        <td>Alameda de Hércules</td>
-                        <td>Si</td>
-                        <td>7 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Factoría Cruzcampo</td>
-                        <td>Variedad Cruzcampo</td>
-                        <td>Nervión</td>
-                        <td>Si</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>El Rinconcillo</td>
-                        <td>Clásica</td>
-                        <td>Centro</td>
-                        <td>No</td>
-                        <td>10 / 10</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>La mención de honor va para <u>El Rinconcillo</u> el bar más antiguo de Sevilla y de España, abrió sus
-                puertas en 1670. Llevan más de 300 años tirando la caña perfecta.</p>
-            <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
-            <a href="cervezas.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
-                    alt="ampliar informacion" width=""></a>
+                <table border="3">
+                    <caption>¡Mi puntuación!</caption>
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Tipo Cv</th>
+                        <th>Ubicación</th>
+                        <th>Terraza</th>
+                        <th>Puntuación</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cerveceria Europa</td>
+                            <td>Internacional</td>
+                            <td>Nervión</td>
+                            <td>Si</td>
+                            <td>8 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Maquila</td>
+                            <td>Artesanal</td>
+                            <td>Alameda de Hércules</td>
+                            <td>Si</td>
+                            <td>7.5 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Bodeguita el Salvador</td>
+                            <td>Clásicas</td>
+                            <td>Plaza del Salvador</td>
+                            <td>Si</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Bierkraft</td>
+                            <td>Artesanal</td>
+                            <td>Alameda de Hércules</td>
+                            <td>Si</td>
+                            <td>7 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Factoría Cruzcampo</td>
+                            <td>Variedad Cruzcampo</td>
+                            <td>Nervión</td>
+                            <td>Si</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>El Rinconcillo</td>
+                            <td>Clásica</td>
+                            <td>Centro</td>
+                            <td>No</td>
+                            <td>10 / 10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>La mención de honor va para <u>El Rinconcillo</u> el bar más antiguo de Sevilla y de España, abrió
+                    sus
+                    puertas en 1670. Llevan más de 300 años tirando la caña perfecta.</p>
+                <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
+                <a href="cervezas.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
+                        alt="ampliar informacion" width=""></a>
 
-        </section>
-        <section id="gastrobares">
-            <h2>¡Gastrobares!</h2>
-            <p>Si te apetece salir a la calle y tomar con tus amigos tapas ligeras, con un buen vermut, vino o cerveza.
-            </p>
-            <p>¡Este es tu listado! Podríamos considerar esta categoría como nueva en la sociedad, antiguamente este
-                tipo de bares se llamaban <del>tabernas o posadas.</del></p>
-            <ul>
-                <li>María Trifulca</li>
-                <li>Veloute</li>
-                <li>Castizo</li>
-                <li>Perro viejo</li>
-                <li>La barca de calderon</li>
-            </ul>
-            <p>Si sois de la ciudad os sonaran gran parte de los nombres, ya que son bien conocidos.</p>
-            <p>Poco más que comentar os dejo la tabla aquí abajo:</p>
-            <table border="3">
-                <caption>¡Mi puntuación!</caption>
-                <thead>
-                    <th>Nombre</th>
-                    <th>Precios</th>
-                    <th>Ubicación</th>
-                    <th>Terraza</th>
-                    <th>Puntuación</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Maria Trifulca</td>
-                        <td>Elevados</td>
-                        <td>Altozano</td>
-                        <td>Si</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Veloute</td>
-                        <td>Medio-alto</td>
-                        <td>Buhaira</td>
-                        <td>No</td>
-                        <td>8.5 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Castizo</td>
-                        <td>Medio</td>
-                        <td>Centro</td>
-                        <td>No</td>
-                        <td>8 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Perro viejo</td>
-                        <td>Medio</td>
-                        <td>Centro</td>
-                        <td>No</td>
-                        <td>7 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>La barca de calderon</td>
-                        <td>Elevado</td>
-                        <td>Triana</td>
-                        <td>Si</td>
-                        <td>8 / 10</td>
-                    </tr>
+            </section>
+            <section id="gastrobares">
+                <h2>¡Gastrobares!</h2>
+                <p>Si te apetece salir a la calle y tomar con tus amigos tapas ligeras, con un buen vermut, vino o
+                    cerveza.
+                </p>
+                <p>¡Este es tu listado! Podríamos considerar esta categoría como nueva en la sociedad, antiguamente este
+                    tipo de bares se llamaban <del>tabernas o posadas.</del></p>
+                <ul>
+                    <li>María Trifulca</li>
+                    <li>Veloute</li>
+                    <li>Castizo</li>
+                    <li>Perro viejo</li>
+                    <li>La barca de calderon</li>
+                </ul>
+                <p>Si sois de la ciudad os sonaran gran parte de los nombres, ya que son bien conocidos.</p>
+                <p>Poco más que comentar os dejo la tabla aquí abajo:</p>
+                <table border="3">
+                    <caption>¡Mi puntuación!</caption>
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Precios</th>
+                        <th>Ubicación</th>
+                        <th>Terraza</th>
+                        <th>Puntuación</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Maria Trifulca</td>
+                            <td>Elevados</td>
+                            <td>Altozano</td>
+                            <td>Si</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Veloute</td>
+                            <td>Medio-alto</td>
+                            <td>Buhaira</td>
+                            <td>No</td>
+                            <td>8.5 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Castizo</td>
+                            <td>Medio</td>
+                            <td>Centro</td>
+                            <td>No</td>
+                            <td>8 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Perro viejo</td>
+                            <td>Medio</td>
+                            <td>Centro</td>
+                            <td>No</td>
+                            <td>7 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>La barca de calderon</td>
+                            <td>Elevado</td>
+                            <td>Triana</td>
+                            <td>Si</td>
+                            <td>8 / 10</td>
+                        </tr>
 
-                </tbody>
-            </table>
-            <p>Nuestra mención de honor en esta ocasión se la lleva <u>Perro Viejo</u>, y diréis pero si es la de
-                puntuación más baja.</p>
-            <p>Sí, pero a nivel ubicación, precios y servicio de los camarero, se lleva nuestra medalla de honor. </p>
-            <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
-            <a href="gastrobares.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
-                    alt="ampliar informacion" width=""></a>
-        </section>
+                    </tbody>
+                </table>
+                <p>Nuestra mención de honor en esta ocasión se la lleva <u>Perro Viejo</u>, y diréis pero si es la de
+                    puntuación más baja.</p>
+                <p>Sí, pero a nivel ubicación, precios y servicio de los camarero, se lleva nuestra medalla de honor.
+                </p>
+                <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
+                <a href="gastrobares.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
+                        alt="ampliar informacion" width=""></a>
+            </section>
 
 
-        <section id="SteakHouse">
-            <h2>¡Restaurantes de carnes Gourmet!</h2>
-            <p>Es hora de saber donde ir a tomar las mejores carnes de Sevilla, podríamos hacer un listado inmenso, pero
-                he escogido los más especiales en esta ocasión.</p>
-            <p>En esta ocasión he incluido también pueblos de los alrededores. Listado de asadores: </p>
-            <ul>
-                <li>Ventorrillo Canario</li>
-                <li>La choza Manuela</li>
-                <li>Asador La burra</li>
-                <li>La quinta braseria</li>
-            </ul>
-            <p>Hora de conocer mi opinión sobre los asadores más aclamados de toda Sevilla</p>
+            <section id="SteakHouse">
+                <h2>¡Restaurantes de carnes Gourmet!</h2>
+                <p>Es hora de saber donde ir a tomar las mejores carnes de Sevilla, podríamos hacer un listado inmenso,
+                    pero
+                    he escogido los más especiales en esta ocasión.</p>
+                <p>En esta ocasión he incluido también pueblos de los alrededores. Listado de asadores: </p>
+                <ul>
+                    <li>Ventorrillo Canario</li>
+                    <li>La choza Manuela</li>
+                    <li>Asador La burra</li>
+                    <li>La quinta braseria</li>
+                </ul>
+                <p>Hora de conocer mi opinión sobre los asadores más aclamados de toda Sevilla</p>
 
-            <table border="3">
-                <caption>¡Mi puntuación!</caption>
-                <thead>
-                    <th>Nombre</th>
-                    <TH>Cocinado</TH>
-                    <th>Precios</th>
-                    <th>Ubicación</th>
-                    <th>Terraza</th>
-                    <th>Puntuación</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ventorrillo Canario</td>
-                        <td>Brasa / Horno</td>
-                        <td>Elevados</td>
-                        <td>Santiponce</td>
-                        <td>No</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>La choza Manuela</td>
-                        <td>Brasa</td>
-                        <td>Bajo</td>
-                        <td>Bormujos</td>
-                        <td>Si</td>
-                        <td>8 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Asador La burra</td>
-                        <td>Brasa / Horno</td>
-                        <td>Medio</td>
-                        <td>Afueras de Sevilla </td>
-                        <td>No</td>
-                        <td>7.5 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>La quinta braseria</td>
-                        <td>Brasa</td>
-                        <td>Medio</td>
-                        <td>Las setas de Sevilla</td>
-                        <td>No</td>
-                        <td>9/ 10</td>
-                    </tr>
+                <table border="3">
+                    <caption>¡Mi puntuación!</caption>
+                    <thead>
+                        <th>Nombre</th>
+                        <TH>Cocinado</TH>
+                        <th>Precios</th>
+                        <th>Ubicación</th>
+                        <th>Terraza</th>
+                        <th>Puntuación</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ventorrillo Canario</td>
+                            <td>Brasa / Horno</td>
+                            <td>Elevados</td>
+                            <td>Santiponce</td>
+                            <td>No</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>La choza Manuela</td>
+                            <td>Brasa</td>
+                            <td>Bajo</td>
+                            <td>Bormujos</td>
+                            <td>Si</td>
+                            <td>8 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Asador La burra</td>
+                            <td>Brasa / Horno</td>
+                            <td>Medio</td>
+                            <td>Afueras de Sevilla </td>
+                            <td>No</td>
+                            <td>7.5 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>La quinta braseria</td>
+                            <td>Brasa</td>
+                            <td>Medio</td>
+                            <td>Las setas de Sevilla</td>
+                            <td>No</td>
+                            <td>9/ 10</td>
+                        </tr>
 
-                </tbody>
-            </table>
-            <p>La mención especial va para el mi sitio por excelencia donde suelo ir cada vez que puedo, se encuentra a
-                tan solo 15 minutos de Sevilla.</p>
-            <p>Ese sitio es <u>La choza Manuela</u> familias completas van a disfrutar de sus carnes todos los fines de
-                semana.</p>
-            <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
-            <a href="SteakHouse.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
-                    alt="ampliar informacion" width=""></a>
-        </section>
+                    </tbody>
+                </table>
+                <p>La mención especial va para el mi sitio por excelencia donde suelo ir cada vez que puedo, se
+                    encuentra a
+                    tan solo 15 minutos de Sevilla.</p>
+                <p>Ese sitio es <u>La choza Manuela</u> familias completas van a disfrutar de sus carnes todos los fines
+                    de
+                    semana.</p>
+                <p>Recuerda si deseas saber más sobre este local, pulsa aquí: </p>
+                <a href="SteakHouse.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
+                        alt="ampliar informacion" width=""></a>
+            </section>
 
-        <section id="restaurantesSorprendentes">
-            <h2>¡Restaurantes especiales!</h2>
-            <p>Si deseas sorprender a tu cita, o si tienes que cerrar un trato importante en tu empresa. Estos son tus
-                restaurantes,
-                económicamente son los más caros de todos los listados aportados en la página, pero nunca te
-                defraudaran.
-            </p>
-            <p>Deberíais de visitar estos lugares al menos una vez en vuestra vida. Veamos el listado: </p>
-            <ul>
-                <li>Maquiavelo</li>
-                <li>Voltereta París</li>
-                <li>Abantal</li>
-                <li>Tribeca</li>
-            </ul>
-            <p>Actualmente son los lugares más exóticos de toda Sevilla, os dejo mi experiencias: </p>
-            <table border="3">
-                <caption>¡Mi puntuación!</caption>
-                <thead>
-                    <th>Nombre</th>
-                    <TH>Especialización</TH>
-                    <th>Precios</th>
-                    <th>Ubicación</th>
-                    <th>Terraza</th>
-                    <th>Puntuación</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Maquiavelo</td>
-                        <td>Shows mientras comes</td>
-                        <td>Elevandos 50€ pax</td>
-                        <td>Muelle de las Delicias</td>
-                        <td>Si</td>
-                        <td>9.5 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Voltereta París</td>
-                        <td>Temático de París</td>
-                        <td>Medio 35€ pax</td>
-                        <td>Nervión</td>
-                        <td>Si</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Abantal</td>
-                        <td>Estrella Michellin</td>
-                        <td>Muy elevado 130€ pax</td>
-                        <td>Santa Justa </td>
-                        <td>No</td>
-                        <td>10 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Tribeca</td>
-                        <td>Especialización en pescados</td>
-                        <td>Muy elevado 100€ pax</td>
-                        <td>Buhaira</td>
-                        <td>Si</td>
-                        <td>8.9/ 10</td>
-                    </tr>
+            <section id="restaurantesSorprendentes">
+                <h2>¡Restaurantes especiales!</h2>
+                <p>Si deseas sorprender a tu cita, o si tienes que cerrar un trato importante en tu empresa. Estos son
+                    tus
+                    restaurantes,
+                    económicamente son los más caros de todos los listados aportados en la página, pero nunca te
+                    defraudaran.
+                </p>
+                <p>Deberíais de visitar estos lugares al menos una vez en vuestra vida. Veamos el listado: </p>
+                <ul>
+                    <li>Maquiavelo</li>
+                    <li>Voltereta París</li>
+                    <li>Abantal</li>
+                    <li>Tribeca</li>
+                </ul>
+                <p>Actualmente son los lugares más exóticos de toda Sevilla, os dejo mi experiencias: </p>
+                <table border="3">
+                    <caption>¡Mi puntuación!</caption>
+                    <thead>
+                        <th>Nombre</th>
+                        <TH>Especialización</TH>
+                        <th>Precios</th>
+                        <th>Ubicación</th>
+                        <th>Terraza</th>
+                        <th>Puntuación</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Maquiavelo</td>
+                            <td>Shows mientras comes</td>
+                            <td>Elevandos 50€ pax</td>
+                            <td>Muelle de las Delicias</td>
+                            <td>Si</td>
+                            <td>9.5 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Voltereta París</td>
+                            <td>Temático de París</td>
+                            <td>Medio 35€ pax</td>
+                            <td>Nervión</td>
+                            <td>Si</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Abantal</td>
+                            <td>Estrella Michellin</td>
+                            <td>Muy elevado 130€ pax</td>
+                            <td>Santa Justa </td>
+                            <td>No</td>
+                            <td>10 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Tribeca</td>
+                            <td>Especialización en pescados</td>
+                            <td>Muy elevado 100€ pax</td>
+                            <td>Buhaira</td>
+                            <td>Si</td>
+                            <td>8.9/ 10</td>
+                        </tr>
 
-                </tbody>
-            </table>
-            <p>La mención especial va sin ninguna duda dirigida para <u>Abantal</u>, fue el primer restaurante de
-                Sevilla en obtener una <b>Estrella Michellin</b> en 2008.</p>
-            <p>Desde entonces, el chef Julio Fernández Quintero ha conseguido mantener este prestigioso reconocimiento
-                de forma ininterrumpida, consolidando a Abantal como un referente histórico de la alta cocina en
-                Sevilla. Durante muchos años fue el único restaurante con esta distinción en la capital hispalense.</p>
-            <p>Recuerda si deseas saber más sobre este local, pulsa aquí:</p>
-            <a href="restaurantesSorprendentes.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
-                    alt="ampliar informacion" width=""></a>
+                    </tbody>
+                </table>
+                <p>La mención especial va sin ninguna duda dirigida para <u>Abantal</u>, fue el primer restaurante de
+                    Sevilla en obtener una <b>Estrella Michellin</b> en 2008.</p>
+                <p>Desde entonces, el chef Julio Fernández Quintero ha conseguido mantener este prestigioso
+                    reconocimiento
+                    de forma ininterrumpida, consolidando a Abantal como un referente histórico de la alta cocina en
+                    Sevilla. Durante muchos años fue el único restaurante con esta distinción en la capital hispalense.
+                </p>
+                <p>Recuerda si deseas saber más sobre este local, pulsa aquí:</p>
+                <a href="restaurantesSorprendentes.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
+                        alt="ampliar informacion" width=""></a>
 
-        </section>
-        <section id="clasicos">
-            <h2>¡Bares de tapeo!</h2>
-            <p>No nos podía faltar donde tapear por Sevilla, da igual a la hora que vayamos que siempren estan llenos.
-                Tienen una esencia que ningún otro tipo de negocio les puede hacer frente.</p>
-            <p>Veamos mis clásicos: </p>
-            <ul>
-                <li>Casa Morales</li>
-                <li>Bodeguita Romero</li>
-                <li>Casa Ricardo</li>
-                <li>Las Teresas</li>
-            </ul>
-            <p>La puntuación en estos bares es meramente objetiva, porque cada uno tiene una especialización donde
-                destacan.</p>
-            <table border="3">
-                <caption>¡Mi puntuación!</caption>
-                <thead>
-                    <th>Nombre</th>
-                    <TH>Plato estrella</TH>
-                    <th>Precios</th>
-                    <th>Ubicación</th>
-                    <th>Terraza</th>
-                    <th>Puntuación</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Casa Morales</td>
-                        <td>Guisos caseros</td>
-                        <td>Económico</td>
-                        <td>Catedral de Sevilla</td>
-                        <td>No</td>
-                        <td>8.7 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Bodeguita Romero</td>
-                        <td>Montadito de pringá</td>
-                        <td>Bajo</td>
-                        <td>Plaza de toros</td>
-                        <td>Si</td>
-                        <td>9.5 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Casa Ricardo</td>
-                        <td>Croquetas</td>
-                        <td>Medio</td>
-                        <td>Alameda de Hércules </td>
-                        <td>No</td>
-                        <td>9 / 10</td>
-                    </tr>
-                    <tr>
-                        <td>Las Teresas</td>
-                        <td>Jamón y frituras</td>
-                        <td>Medio</td>
-                        <td>Barrio de Santa Cruz</td>
-                        <td>Si</td>
-                        <td>8.5/ 10</td>
-                    </tr>
+            </section>
+            <section id="clasicos">
+                <h2>¡Bares de tapeo!</h2>
+                <p>No nos podía faltar donde tapear por Sevilla, da igual a la hora que vayamos que siempren estan
+                    llenos.
+                    Tienen una esencia que ningún otro tipo de negocio les puede hacer frente.</p>
+                <p>Veamos mis clásicos: </p>
+                <ul>
+                    <li>Casa Morales</li>
+                    <li>Bodeguita Romero</li>
+                    <li>Casa Ricardo</li>
+                    <li>Las Teresas</li>
+                </ul>
+                <p>La puntuación en estos bares es meramente objetiva, porque cada uno tiene una especialización donde
+                    destacan.</p>
+                <table border="3">
+                    <caption>¡Mi puntuación!</caption>
+                    <thead>
+                        <th>Nombre</th>
+                        <TH>Plato estrella</TH>
+                        <th>Precios</th>
+                        <th>Ubicación</th>
+                        <th>Terraza</th>
+                        <th>Puntuación</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Casa Morales</td>
+                            <td>Guisos caseros</td>
+                            <td>Económico</td>
+                            <td>Catedral de Sevilla</td>
+                            <td>No</td>
+                            <td>8.7 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Bodeguita Romero</td>
+                            <td>Montadito de pringá</td>
+                            <td>Bajo</td>
+                            <td>Plaza de toros</td>
+                            <td>Si</td>
+                            <td>9.5 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Casa Ricardo</td>
+                            <td>Croquetas</td>
+                            <td>Medio</td>
+                            <td>Alameda de Hércules </td>
+                            <td>No</td>
+                            <td>9 / 10</td>
+                        </tr>
+                        <tr>
+                            <td>Las Teresas</td>
+                            <td>Jamón y frituras</td>
+                            <td>Medio</td>
+                            <td>Barrio de Santa Cruz</td>
+                            <td>Si</td>
+                            <td>8.5/ 10</td>
+                        </tr>
 
-                </tbody>
-            </table>
-            <p>La mención especial es para <u>Casa Morales</u>, ofrece una experiencia visual única porque puedes comer
-                literalmente entre tinajas de barro gigantes donde antiguamente se almacenaba el vino.</p>
-            <p>Estaba duda en si darle la mención especial también a <u>Bodeguita Romero</u> es un clásico entre los
-                Sevillanos, si deseas disfrutar de los mejores montaditos de la ciudad, junto a una buena Cruzcampo o
-                vino.</p>
-            <p>Recuerda si deseas saber más sobre este local, pulsa aquí:</p>
-            <a href="tapas.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
-                    alt="ampliar informacion" width=""></a>
+                    </tbody>
+                </table>
+                <p>La mención especial es para <u>Casa Morales</u>, ofrece una experiencia visual única porque puedes
+                    comer
+                    literalmente entre tinajas de barro gigantes donde antiguamente se almacenaba el vino.</p>
+                <p>Estaba duda en si darle la mención especial también a <u>Bodeguita Romero</u> es un clásico entre los
+                    Sevillanos, si deseas disfrutar de los mejores montaditos de la ciudad, junto a una buena Cruzcampo
+                    o
+                    vino.</p>
+                <p>Recuerda si deseas saber más sobre este local, pulsa aquí:</p>
+                <a href="tapas.html" target="_blank"><img src="Imagenes/Ampliar información (1).png"
+                        alt="ampliar informacion" width=""></a>
 
-        </section>
-        <h2>Menciones Especiales</h2>
-        <nav class="navegacion-final">
-            <a href="cervezas.html">El Rinconcillo</a>
-            <a href="gastrobares.html">Perro Viejo</a>
-            <a href="SteakHouse.html">La choza Manuela</a>
-            <a href="restaurantesSorprendentes.html">Abantal</a>
-            <a href="tapas.html">Casa Morales</a>
-        </nav>
-        <br>
+            </section>
+            <h2>Menciones Especiales</h2>
+            <nav class="navegacion-final">
+                <a href="cervezas.html">El Rinconcillo</a>
+                <a href="gastrobares.html">Perro Viejo</a>
+                <a href="SteakHouse.html">La choza Manuela</a>
+                <a href="restaurantesSorprendentes.html">Abantal</a>
+                <a href="tapas.html">Casa Morales</a>
+            </nav>
+            <br>
     </main>
     <footer>
-        <!--ENLACE A RSS, NOTICIAS -->
-        <a href="rss.xml" target="_blank" style="display:inline-block;">
-            <img src="https://cdn-icons-png.flaticon.com/512/124/124033.png" alt="RSS" style="width:50px; border-radius:8px;">
-        </a>
         <div class="columna-footer">
             <h3>Sobre Nosotros</h3>
             <p>Tu guía de confianza para descubrir los mejores sabores de Sevilla.</p>
@@ -502,6 +595,35 @@
         </div>
         <p class="copyright">2025 - Guía Gastronómica de Sevilla.</p>
     </footer>
+    <!-- PROYECTO SCRIPT BIENVENIDA Y SCRIPT AMPLIAR CONDICIONES -->
+    <script>
+        //Mensaje emergente en la web
+        alert("¡Bienvenido a mi web gastronómica!");
+        /*Guardo en una variable el nombre introducido por consola y renombro el primer h2 de la web para mostrar el mensaje de bienvenida*/
+        let nombre = prompt("Introduzca su nombre y apellidos:"); //Ventana para introducir datos
+        document.querySelector("h2").innerHTML = "¡Bienvenido " + nombre + " ! Espero que disfrutes de tu experiencia gastronómica.";
+    
+        //Script ampliar condiciones
+        let textoOculto = true;
+
+        function modificarCondiciones() {
+            /*creamos una variable y si es lo contrario modificamos el parrafo con el id que le hemos dado y mostramos el texto escrito, 
+            luego cambiamos la variable a true, y hacemos que cuando pulsemos el boton se oculte*/
+            if (!textoOculto) {
+                document.getElementById("modif").innerHTML = "Solo para nuevos clientes. Llame al 911075284."
+                let boton = document.getElementById("botonModif");
+                textoOculto = true;
+                boton.innerHTML = "Ocultar condiciones del establecimiento"
+
+            } else {
+                document.getElementById("modif").innerHTML = " "
+                let boton = document.getElementById("botonModif");
+                boton.innerHTML = "Ver condiciones del establecimiento"
+                textoOculto = false;
+            }
+        }
+
+    </script>
 </body>
 
 </html>

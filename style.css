@@ -1,3 +1,4 @@
+/*HOJA DE ESTILO PARA INDEX SOLO*/
 * {
     margin: 0;
     padding: 0;
@@ -210,25 +211,6 @@ textarea:invalid {
     background-color: rgb(255, 220, 220);
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border: 2px solid green;
-    background-color: rgb(220, 255, 220);
-}
-
-input:valid,
-select:valid,
-textarea:valid {
-    border: 2px solid darkgreen;
-}
-
-input:invalid,
-select:invalid,
-textarea:invalid {
-    border: 2px solid red;
-    background-color: rgb(255, 220, 220);
-}
 
 input[type="radio"]:checked {
     accent-color: green;
@@ -378,7 +360,7 @@ HE ECHO UN ESTILO RECTANGULO QUE ENGOBLA TODO CUANDO LO ESTAS LEYENDO*/
     flex-wrap: wrap;
     margin: auto;
     padding: 20px;
-    background-color:rgb(247, 62, 62);
+    background-color: rgb(247, 62, 62);
     border: 6px solid rgb(131, 7, 28);
     border-radius: 10px;
     width: 90%;
@@ -402,30 +384,31 @@ HE ECHO UN ESTILO RECTANGULO QUE ENGOBLA TODO CUANDO LO ESTAS LEYENDO*/
 
 /* ESTILO FOOTER */
 footer {
-    grid-row: 3 / 4; 
+    grid-row: 3 / 4;
     background-color: rgb(247, 62, 62);
-    color: #ffffff; 
-    padding: 30px 10%; 
+    color: #ffffff;
+    padding: 30px 10%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
     font-family: sans-serif;
-    border-top: 4px solid #ffc400; 
+    border-top: 4px solid #ffc400;
 }
 
 .columna-footer {
-    flex: 0 1 300px;
+    flex: 1;
     margin: 20px;
     text-align: left;
 }
+
 .columna-footer h3 {
-    color: #ffc400; 
+    color: #ffc400;
     font-family: "Staatliches", sans-serif;
     font-size: 22px;
     margin-bottom: 12px;
     text-transform: uppercase;
-    border-bottom: 2px solid  #ffc400;
+    border-bottom: 2px solid #ffc400;
     display: inline-block;
     padding-bottom: 3px;
 }
@@ -437,7 +420,7 @@ footer {
 }
 
 .columna-footer a {
-    color: #ffc400; 
+    color: #ffc400;
     text-decoration: none;
     font-weight: bold;
     border: 1px solid #ffc400;
@@ -448,7 +431,7 @@ footer {
 
 .columna-footer a:hover {
     background-color: #ffc400;
-    color:rgb(247, 62, 62);
+    color: rgb(247, 62, 62);
 }
 
 .copyright {
@@ -462,13 +445,204 @@ footer {
 }
 
 
-/*PARA MOVIL PONGO DISPLAY: NONE PARA OCULTAR LA BARRA DE NAVEGACION*/
+/*  MOVIL */
 
-/*PARA MOVIL*/
-@media (max-width: 1000px){
-	
+@media (max-width: 1000px) {
+
+    .barra-superior {
+        display: none;
+        /*PARA MOVIL PONGO DISPLAY: NONE PARA OCULTAR LA BARRA DE NAVEGACION YA QUE OCUPAN DEMASIADO ESPACIO Y QUEDA FEO
+        SE PODRIA USAR JAVASCRIPT PARA HACER UN BOTON TIPO HAMBURGUESA PERO AUN NO LO HEMOS DADO POR ESO LO OCULTO DE MOMENTO
+        SI QUEREMOS USARLO SOLO HABRA QUE CAMBIAR EL DISPLAY NONE POR 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%; */
+
+    }
+
+    .logos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    header nav {
+        flex-direction: column;
+        position: static;
+        gap: 10px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    #reservas .contenedor-reservas {
+        grid-template-columns: 1fr;
+    }
+
+    .logos {
+        flex-direction: column;
+    }
+
+    #cañas table,
+    #gastrobares table,
+    #SteakHouse table,
+    #restaurantesSorprendentes table,
+    #clasicos table {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .columna-footer {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .navegacion-final {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /*AJUSTO EL TAMAÑO DE LETRAS PARA QUE NO SE VEA TAN GRANDE LA WEB EN EL MOVIL*/
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    header {
+        padding: 10px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    a img {
+        width: 100px;
+    }
 }
-/*PARA PC*/
-@media (min-width: 1001px){
-	
+
+/*MODO OSCURO PARA JAVASCRIPT PROYECTO*/
+
+/* Fondo general y texto */
+.fondo-oscuro {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.fondo-oscuro fieldset {
+    background-color: #1e1e1e;
+    border: 2px dashed #ffc400;
+    color: white;
+}
+
+/* ESTILO TARJETAS */
+.fondo-oscuro #presentacion,
+.fondo-oscuro fieldset,
+.fondo-oscuro #cañas,
+.fondo-oscuro #gastrobares,
+.fondo-oscuro #SteakHouse,
+.fondo-oscuro #restaurantesSorprendentes,
+.fondo-oscuro #clasicos {
+    background-color: #1e1e1e;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.24);
+}
+
+.fondo-oscuro h2 {
+    color: #ffc400;
+}
+
+.fondo-oscuro table,
+.fondo-oscuro td {
+    background-color: #000000e8
+}
+
+/* ESTILO Y LUGAR del botón de modo oscuro */
+#boton-oscuro {
+    position: absolute;
+    top: 30px;
+    right: 25px;
+
+    background-color: white;
+    color: rgb(247, 62, 62);
+    border: 2px solid white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-family: 'Staatliches', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+#boton-oscuro:hover {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+}
+
+/* ESTILO Y LUGAR BOTON CARRUSEL */
+.contenedor-carrusel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+img {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/*ESTILO BOTON AMPLIAR CONDICIONES*/
+#botonModif {
+    background-color: white;
+    color: rgb(247, 62, 62);
+    border: 2px solid rgb(0, 0, 0);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-family: 'Staatliches', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#modif {
+    color:  #ffc400;
+    font-family: 'Staatliches', sans-serif;
+    font-size: 25px;
+
 }

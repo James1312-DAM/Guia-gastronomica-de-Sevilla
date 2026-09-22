@@ -18,6 +18,32 @@
 
 <body>
     <header>
+        <button id="boton-oscuro" onclick="cambiarColor()">Modo Oscuro</button>
+        <script>
+
+            let colorClaro = false;
+
+            function cambiarColor() {
+                if (!colorClaro) {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = "fondo-oscuro";
+                    colorClaro = true;
+                    console.log("Cambio el color a oscuro.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema Claro";
+                } else {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = ""; //Truco para no editar las clases de css vuelve al estilo original, sin necesidad de crear ahora la clase modoClaro.
+                    colorClaro = false;
+                    console.log("Cambio el color a blanco.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema oscuro";
+                }
+
+            }
+        </script>
         <h1> Guía gastronómica de Sevilla con reserva online</h1>
     </header>
     <main>

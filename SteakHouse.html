@@ -17,6 +17,32 @@
 
 <body>
     <header>
+        <button id="boton-oscuro" onclick="cambiarColor()">Modo Oscuro</button>
+        <script>
+
+            let colorClaro = false;
+
+            function cambiarColor() {
+                if (!colorClaro) {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = "fondo-oscuro";
+                    colorClaro = true;
+                    console.log("Cambio el color a oscuro.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema Claro";
+                } else {
+                    let elementoBody = document.querySelector("body");
+                    elementoBody.className = ""; //Truco para no editar las clases de css vuelve al estilo original, sin necesidad de crear ahora la clase modoClaro.
+                    colorClaro = false;
+                    console.log("Cambio el color a blanco.");
+
+                    let boton = document.querySelector("button");
+                    boton.innerHTML = "Tema oscuro";
+                }
+
+            }
+        </script>
         <h1> Guía gastronómica de Sevilla con reserva online</h1>
     </header>
     <main>
@@ -58,19 +84,19 @@
         </section>
         <br>
         <p class="texto-descuento"><b>¡A qué esperas, haz tu reserva ya! Con descuento</b> </p>
-        <a class="boton-reserva" href="index.html#reservas"> <img src="Imagenes/reservar mesa ahora.jpg" alt="boton para reservar mesa"
-                width="300">
+        <a class="boton-reserva" href="index.html#reservas"> <img src="Imagenes/reservar mesa ahora.jpg"
+                alt="boton para reservar mesa" width="300">
         </a>
         <hr>
         <div class="navegacion-final">
-        <nav>
-            <a href="index.html#presentación">Inicio</a>
-            <a href="index.html#cañas">Las mejores cervezas</a>
-            <a href="index.html#gastrobares">Los mejores restaurantes</a>
-            <a href="index.html#SteakHouse">Las mejores carnes</a>
-            <a href="index.html#restaurantesSorprendentes">Restaurantes sorprendentes</a>
-            <a href="index.html#clasicos">Las mejores tapas </a>
-        </nav>
+            <nav>
+                <a href="index.html#presentación">Inicio</a>
+                <a href="index.html#cañas">Las mejores cervezas</a>
+                <a href="index.html#gastrobares">Los mejores restaurantes</a>
+                <a href="index.html#SteakHouse">Las mejores carnes</a>
+                <a href="index.html#restaurantesSorprendentes">Restaurantes sorprendentes</a>
+                <a href="index.html#clasicos">Las mejores tapas </a>
+            </nav>
         </div>
         <br>
     </main>
